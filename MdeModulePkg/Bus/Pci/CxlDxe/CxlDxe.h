@@ -19,8 +19,8 @@
 #include <Library/UefiRuntimeServicesTableLib.h>
 #include <Base.h>
 
-#if defined(_MSC_VER)
-#include <intrin.h>  /* __popcnt64 */
+#if defined (_MSC_VER)
+  #include <intrin.h>  /* __popcnt64 */
 #endif
 
 #define CXL_MEMORY_CLASS      0x05

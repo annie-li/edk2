@@ -6,6 +6,10 @@
 #include "CxlDxe.h"
 #include "CxlDxeUtil.h"
 
+#if defined (_MSC_VER)
+#include <intrin.h>  /* __popcnt64 */
+#endif
+
 /**
   Returns minimum among the input values
 
