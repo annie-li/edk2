@@ -53,9 +53,12 @@ typedef struct _SEC_SEV_ES_WORK_AREA {
   // Flags:
   // - ReceivedVc: Indicator that the VC handler was called. It is used during
   //   the SevFeature detection in OvmfPkg/ResetVector/Ia32/AmdSev.asm
+  // - CoherencySfwNo: Indicator that the SEV-SNP cache line evication
+  //   mitigation is not needed.
   //
-  UINT8     ReceivedVc : 1;
-  UINT8     Reserved1  : 7;
+  UINT8     ReceivedVc     : 1;
+  UINT8     CoherencySfwNo : 1;
+  UINT8     Reserved1      : 6;
 
   UINT8     Reserved2[7];
 
