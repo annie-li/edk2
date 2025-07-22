@@ -50,12 +50,14 @@ typedef struct _SEC_SEV_ES_WORK_AREA {
 
   UINT64    EncryptionMask;
 
+  // Flags:
+  // - ReceivedVc: Indicator that the VC handler was called. It is used during
+  //   the SevFeature detection in OvmfPkg/ResetVector/Ia32/AmdSev.asm
   //
-  // Indicator that the VC handler is called. It is used during the SevFeature
-  // detection in OvmfPkg/ResetVector/Ia32/AmdSev.c
-  //
-  UINT8     ReceivedVc;
-  UINT8     Reserved[7];
+  UINT8     ReceivedVc : 1;
+  UINT8     Reserved1  : 7;
+
+  UINT8     Reserved2[7];
 
   // Used by SEC to generate Page State Change requests. This should be
   // sized less than an equal to the GHCB shared buffer area to allow a
