@@ -73,6 +73,7 @@ typedef enum ArchCommonObjectID {
   EArchCommonObjSpcrInfo,                       ///< 45 - Serial Terminal and Interrupt Info
   EArchCommonObjTpm2DeviceInfo,                 ///< 46 - TPM2 Device Info
   EArchCommonObjMcfgPciConfigSpaceInfo,         ///< 47 - MCFG PCI Configuration Space Info
+  EArchCommonObjPrtInfo,                        ///< 48 - PCI Routing Table Info
   EArchCommonObjMax
 } EARCH_COMMON_OBJECT_ID;
 
@@ -267,6 +268,28 @@ typedef struct CmArchCommonPciInterruptMapInfo {
   */
   CM_ARCH_COMMON_GENERIC_INTERRUPT    IntcInterrupt;
 } CM_ARCH_COMMON_PCI_INTERRUPT_MAP_INFO;
+
+/** A structure that describes a PCI Routing Table (PRT) Info.
+  Cf ACPI spec 6.5
+  s6.2.13 _PRT (PCI Routing Table)
+
+  ID: EArchCommonObjPrtInfo
+*/
+typedef struct CmArchCommonPrtInfo {
+  /// The address of the device, High word-Device #, Low word-Function #.
+  UINT32             Address;
+
+  /// The PCI pin number of the device (0-INTA, 1-INTB, 2-INTC, 3-INTD).
+  UINT8              Pin;
+
+  /// Reference token to the interrupt allocating device name.
+  /// Used by Legacy X64/IA32 devices, most modern platform uses GSI.
+  CM_OBJECT_TOKEN    SourceToken;
+
+  /// If SourceToken is NULL, this is the Global System Interrupt number.
+  /// Otherwise, this is the index into resource descriptor.
+  UINT32             SourceIndex;
+} CM_ARCH_COMMON_PRT_INFO;
 
 /** A structure that describes the Memory Affinity Structure (Type 1) in SRAT
 
