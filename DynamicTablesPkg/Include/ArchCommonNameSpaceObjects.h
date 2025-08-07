@@ -74,6 +74,8 @@ typedef enum ArchCommonObjectID {
   EArchCommonObjTpm2DeviceInfo,                 ///< 46 - TPM2 Device Info
   EArchCommonObjMcfgPciConfigSpaceInfo,         ///< 47 - MCFG PCI Configuration Space Info
   EArchCommonObjPrtInfo,                        ///< 48 - PCI Routing Table Info
+  EArchCommonObjRbPrtInfo,                      ///< 49 - Root Bridge PRT Info
+  EArchCommonObjPciRootBridgeInfo,              ///< 50 - PCI Root Bridge Info
   EArchCommonObjMax
 } EARCH_COMMON_OBJECT_ID;
 
@@ -185,6 +187,10 @@ typedef struct CmArchCommonPciConfigSpaceInfo {
   /// Optional field: Reference Token for interrupt mapping.
   /// Token identifying a CM_ARCH_COMMON_OBJ_REF structure.
   CM_OBJECT_TOKEN    InterruptMapToken;
+
+  /// Optional field: Reference Token for PCI root bridge information.
+  /// Token identifying a CM_ARCH_COMMON_PCI_ROOT_BRIDGE_INFO structure.
+  CM_OBJECT_TOKEN    RootBridgeInfoToken;
 } CM_ARCH_COMMON_PCI_CONFIG_SPACE_INFO;
 
 /** A structure that describes a PCI Address Map.
@@ -274,6 +280,7 @@ typedef struct CmArchCommonPciInterruptMapInfo {
   s6.2.13 _PRT (PCI Routing Table)
 
   ID: EArchCommonObjPrtInfo
+      EArchCommonObjRbPrtInfo
 */
 typedef struct CmArchCommonPrtInfo {
   /// The address of the device, High word-Device #, Low word-Function #.
@@ -290,6 +297,18 @@ typedef struct CmArchCommonPrtInfo {
   /// Otherwise, this is the index into resource descriptor.
   UINT32             SourceIndex;
 } CM_ARCH_COMMON_PRT_INFO;
+
+/** A structure that describes PCI Root Bridge information.
+  Contains the PCI Routing Table (PRT) details for the root bridge.
+  Cf ACPI spec 6.5
+  s6.2.13 _PRT (PCI Routing Table)
+
+  ID: EArchCommonObjPciRootBridgeInfo
+*/
+typedef struct CmArchCommonObjPciRootBridgeInfo {
+  /// Token of array of CM_ARCH_COMMON_PRT_INFO objects
+  CM_OBJECT_TOKEN    RootBridgePrtToken;
+} CM_ARCH_COMMON_PCI_ROOT_BRIDGE_INFO;
 
 /** A structure that describes the Memory Affinity Structure (Type 1) in SRAT
 
