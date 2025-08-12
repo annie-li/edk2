@@ -1131,6 +1131,8 @@ X509GetIssuerName (
     return FALSE;
   }
 
+  Status = FALSE;
+
   mbedtls_x509_crt_init (&Crt);
 
   Ret = mbedtls_x509_crt_parse_der (&Crt, Cert, CertSize);
