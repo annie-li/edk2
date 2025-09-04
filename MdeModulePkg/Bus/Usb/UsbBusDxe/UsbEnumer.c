@@ -426,7 +426,7 @@ UsbSelectConfig (
       // If UsbCreateDesc() bailed on an interface or endpoint desc, don't try to
       // configure that interface here.
       //
-      DEBUG ((EFI_D_INFO, "UsbSelectConfig: Skipping uninitialized interface %d.\n", Index));
+      DEBUG ((DEBUG_INFO, "UsbSelectConfig: Skipping uninitialized interface %d.\n", Index));
       continue;
     }
 

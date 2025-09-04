@@ -827,7 +827,7 @@ UsbGetOneString (
       (((EFI_USB_STRING_DESCRIPTOR *)Buf)->Length < OFFSET_OF (EFI_USB_STRING_DESCRIPTOR, Length) + sizeof (((EFI_USB_STRING_DESCRIPTOR *)Buf)->Length)) ||
       (((EFI_USB_STRING_DESCRIPTOR *)Buf)->Length % 2 != 0))
   {
-    DEBUG ((EFI_D_ERROR, "UsbGetOneString: Get 255 bytes path failed, Status = %r\n", Status));
+    DEBUG ((DEBUG_ERROR, "UsbGetOneString: Get 255 bytes path failed, Status = %r\n", Status));
     FreePool (Buf);
     Buf = NULL;
 
@@ -1147,10 +1147,10 @@ UsbBuildDescTable (
   if (DevDesc->Desc.BcdUSB >= 0x210) {
     Status = UsbGetDevBOSDesc (UsbDev);
     if (EFI_ERROR (Status)) {
-      DEBUG ((EFI_D_INFO, "UsbBuildDescTable: get BOS descriptor %r\n", Status));
+      DEBUG ((DEBUG_INFO, "UsbBuildDescTable: get BOS descriptor %r\n", Status));
     } else {
       UsbDev->IsSSDev = UsbIsSSDevice (UsbDev->DevDesc->BOSDesc, (UINTN)((USB_BOS_DESC *)(UsbDev->DevDesc->BOSDesc))->TotalLength);
-      DEBUG ((EFI_D_INFO, "UsbBuildDescTable: get BOS descriptor %r, UsbDev->IsSSDev = %d\n", Status, UsbDev->IsSSDev));
+      DEBUG ((DEBUG_INFO, "UsbBuildDescTable: get BOS descriptor %r, UsbDev->IsSSDev = %d\n", Status, UsbDev->IsSSDev));
     }
   }
 
